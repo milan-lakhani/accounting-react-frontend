@@ -1,5 +1,5 @@
-import React from 'react'
-import auth from '../../services/authservice'
+import React from 'react';
+import auth from '../../services/authservice';
 class Login extends React.Component {
   constructor() {
     super();
@@ -7,14 +7,26 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+
+    auth.authChecker();
   }
 
   submitForm(e) {
     e.preventDefault();
     console.log('Login Form submitted');
-    auth.loginUser(this.state.email , this.state.password)
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    auth
+      .loginUser(this.state.email, this.state.password)
+      .then((data) => {
+        
+        if(data.user){
+          localStorage.setItem('user' , JSON.stringify(data.user))
+          console.log(data);this.props.history.push('/dashboard')
+        }
+      })
+      .catch((err) => {
+        // console.log('inside err', err);
+        window.alert(err.message)
+      });
   }
 
   render() {
@@ -33,9 +45,7 @@ class Login extends React.Component {
                     <input
                       type='text'
                       name='user'
-                      onChange={(e) =>
-                        this.setState({ email: e.target.value })
-                      }
+                      onChange={(e) => this.setState({ email: e.target.value })}
                       placeholder='User'
                     />
                   </div>

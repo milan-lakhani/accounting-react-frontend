@@ -21,6 +21,7 @@ class Register extends React.Component {
   }
 
   checkAllCredentials() {
+    
     return (
       this.state.isEmailTrue &&
       this.state.isPasswordTrue &&
@@ -159,7 +160,7 @@ class Register extends React.Component {
             loaded : true
           });
           window.alert("User has registered sucessfully");
-          history.push('/login')
+          this.props.history.push('/login');
           
         })
         .catch((err) => {
