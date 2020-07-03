@@ -45,8 +45,19 @@ import firebaseApp from '../firebase'
     createUser(username , password , email){
 
       console.log("Inside create users");
-
-      return this.firebaseauth.createUserWithEmailAndPassword(email, password)
+      
+      return this.firebaseauth.createUserWithEmailAndPassword(email, password).then(data =>{
+        console.log(this.firebaseauth.currentUser)
+        this.firebaseauth.currentUser.updateProfile({
+          displayName: username,
+        }).then(() =>{
+          console.log("Successfully changed displayname to ," , username);
+          
+        }).catch(err => {
+          console.log("error hile dname" , err)
+        })
+        
+      })
       
        
       // return axios

@@ -154,8 +154,8 @@ class Register extends React.Component {
       auth
         .createUser(this.state.username, this.state.password, this.state.email)
         .then((data) => {
-          
-          console.log(data);
+
+          console.log("inside creating user data from firebase" , data);
           this.setState({
             loaded : true
           });
